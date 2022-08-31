@@ -40,7 +40,9 @@ app.post(
     body("category")
         .isIn(categoriesArray.map((category) => category.slug))
         .withMessage("Invalid Category"),
-    body("description").exists().withMessage("Invalid Description"),
+    body("description")
+        .isLength({ min: 10 })
+        .withMessage("Invalid Description"),
     (req, res) => {
         const { errors } = validationResult(req);
 
